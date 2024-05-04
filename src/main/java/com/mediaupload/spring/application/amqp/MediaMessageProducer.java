@@ -1,6 +1,7 @@
 package com.mediaupload.spring.application.amqp;
 
 
+import com.mediaupload.spring.application.amqp.exceptions.ProducerGenerateException;
 import com.mediaupload.spring.domain.exceptions.UnsuportedMediaContentTypeException;
 import com.mediaupload.spring.domain.model.MP3Media;
 import com.mediaupload.spring.domain.model.MP4Media;
@@ -34,9 +35,7 @@ public class MediaMessageProducer {
 
         var queueToSend = getQueueName(mediaFormat);
 
-        ProducerRecord<String, Object> producerRecord;
-
-        producerRecord = new ProducerRecord<>(queueToSend, mediaToUpload);
+        ProducerRecord<String, Object> producerRecord = generateProducer(queueToSend, mediaToUpload);
 
         kafkaTemplate.send(producerRecord);
 
@@ -50,6 +49,16 @@ public class MediaMessageProducer {
         else if (mediaFormat instanceof MP4Media) return filaAzure;
 
         else throw new UnsuportedMediaContentTypeException("Queue for this media type not found");
+    }
+
+    private ProducerRecord<String, Object> generateProducer(String queue, Object value)  {
+
+        if (queue.length() > 0  && value != null) {
+
+            return new ProducerRecord<String,Object>(queue, value);
+        }
+
+        throw new ProducerGenerateException("Not possible to create a producer check queueName or/and Object ");
     }
 
 
