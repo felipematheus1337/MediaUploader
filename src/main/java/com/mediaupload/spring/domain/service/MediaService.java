@@ -12,7 +12,7 @@ public interface MediaService {
 
     Media createAnMedia(MultipartFile file, Long id) throws IOException;
 
-    void upload(Media media);
+    void upload(byte[] bytes ,Media media);
 
 
 

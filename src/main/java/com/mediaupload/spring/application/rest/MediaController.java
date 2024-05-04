@@ -8,17 +8,18 @@ import com.mediaupload.spring.domain.service.MediaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 @RestController
 @RequestMapping("v1/media")
 @RequiredArgsConstructor
+@CrossOrigin("*")
+
 public class MediaController {
 
     private final ObjectMapper objectMapper;
@@ -35,7 +36,9 @@ public class MediaController {
 
         var media = this.mediaService.createAnMedia(file, idUser);
 
-        this.mediaService.upload(media);
+        byte[] bytesArchive = file.getBytes();
+
+        this.mediaService.upload(bytesArchive, media);
 
         return ResponseEntity.ok("Mensagem em breve.");
     }

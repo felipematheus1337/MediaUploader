@@ -1,4 +1,4 @@
-package com.mediaupload.spring.infra.config;
+package com.mediaupload.spring.infra.config.mapper;
 
 
 import com.mediaupload.spring.application.rest.request.UserRequest;

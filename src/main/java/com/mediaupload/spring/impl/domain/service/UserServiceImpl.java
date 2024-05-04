@@ -6,9 +6,8 @@ import com.mediaupload.spring.domain.exceptions.UserNotFoundException;
 import com.mediaupload.spring.domain.model.User;
 import com.mediaupload.spring.domain.repository.UserRepository;
 import com.mediaupload.spring.domain.service.UserService;
-import com.mediaupload.spring.infra.config.UserMapper;
+import com.mediaupload.spring.infra.config.mapper.UserMapper;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -26,9 +26,9 @@ public class MediaServiceImpl implements MediaService {
     private final FileService fileService;
 
     @Override
-    public void upload(Media media)  {
+    public void upload(byte[] archive ,Media media)  {
 
-        // TO DO --
+       
 
 
     }

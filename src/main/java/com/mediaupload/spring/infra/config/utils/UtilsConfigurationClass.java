@@ -1,4 +1,4 @@
-package com.mediaupload.spring.infra.config;
+package com.mediaupload.spring.infra.config.utils;
 
 
 import org.modelmapper.ModelMapper;
