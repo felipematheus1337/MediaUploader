@@ -16,5 +16,7 @@ public interface UserService {
 
     List<UserResponse> listAllUsers();
 
+   boolean existsUserById(Long id);
+
 
 }

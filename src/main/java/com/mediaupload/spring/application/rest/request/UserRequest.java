@@ -15,4 +15,8 @@ public class UserRequest {
     private String email;
 
     private String phoneNumber;
+
+    private boolean isEmailActive;
+
+    private String name;
 }

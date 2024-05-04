@@ -33,6 +33,7 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
     public boolean existsUserById(Long id) {
 
         return this.userRepository.existsById(id);

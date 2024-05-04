@@ -40,6 +40,6 @@ public class MediaController {
 
         this.mediaService.upload(bytesArchive, media);
 
-        return ResponseEntity.ok("Mensagem em breve.");
+        return ResponseEntity.ok("Arquivo sendo processado aguarde confirmação via E-mail/SMS");
     }
 }
