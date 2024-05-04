@@ -9,10 +9,12 @@ import org.apache.kafka.common.serialization.ByteArrayDeserializer;
 import org.apache.kafka.common.serialization.ByteArraySerializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
+import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.core.*;
 
 import java.util.HashMap;
@@ -25,11 +27,26 @@ public class AMQPBeanConfiguration {
     private final KafkaProperties kafkaProperties;
 
 
+    @Value("${queue.aws}")
+    private String awsTopic;
+
+    @Value("${queue.azure}")
+    private String azureTopic;
+
+
     @Bean
     public KafkaAdmin kafkaAdmin() {
         var configs = new HashMap<String, Object>();
         configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getBootstrapServers());
         return new KafkaAdmin(configs);
+    }
+
+    @Bean
+    public KafkaAdmin.NewTopics newTopics() {
+       return new KafkaAdmin.NewTopics(
+               TopicBuilder.name(awsTopic).build(),
+               TopicBuilder.name(azureTopic).build()
+       );
     }
 
 

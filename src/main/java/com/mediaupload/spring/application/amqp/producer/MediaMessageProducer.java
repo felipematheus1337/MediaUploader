@@ -1,4 +1,4 @@
-package com.mediaupload.spring.application.amqp;
+package com.mediaupload.spring.application.amqp.producer;
 
 
 import com.mediaupload.spring.application.amqp.exceptions.ProducerGenerateException;
@@ -51,11 +51,11 @@ public class MediaMessageProducer {
         else throw new UnsuportedMediaContentTypeException("Queue for this media type not found");
     }
 
-    private ProducerRecord<String, Object> generateProducer(String queue, Object value)  {
+    private <T> ProducerRecord<String, Object> generateProducer(String queue, T value)  {
 
         if (queue.length() > 0  && value != null) {
 
-            return new ProducerRecord<String,Object>(queue, value);
+            return new ProducerRecord<>(queue, value);
         }
 
         throw new ProducerGenerateException("Not possible to create a producer check queueName or/and Object ");
