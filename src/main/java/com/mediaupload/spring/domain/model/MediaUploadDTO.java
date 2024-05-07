@@ -15,4 +15,6 @@ public class MediaUploadDTO {
     private byte[] archive;
 
     private MediaFormat mediaFormat;
+
+    private StorageTypeEnum storageTypeEnum;
 }

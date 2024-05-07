@@ -1,8 +1,10 @@
 package com.mediaupload.spring.infra.adapter;
 
 
+import com.mediaupload.spring.domain.model.MediaEnum;
 import com.mediaupload.spring.domain.model.MediaFormat;
 import com.mediaupload.spring.domain.model.MediaUploadDTO;
+import com.mediaupload.spring.domain.model.StorageTypeEnum;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,6 +15,10 @@ public class MediaAdapter {
         return MediaUploadDTO.builder()
                 .archive(archive)
                 .mediaFormat(mediaFormat)
+                .storageTypeEnum(mediaFormat.getType() ==
+                        MediaEnum.MP3 ?
+                        StorageTypeEnum.AWS :
+                        StorageTypeEnum.AZURE)
                 .build();
     }
 }

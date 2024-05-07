@@ -31,3 +31,13 @@ queue:
   azure: topic-azure
 
 
+aws:
+  accessKeyId: {ACCESS_KEY_AWS}
+  secretKey: {SECRET_KEY_AWS}
+  region: us-east-2
+
+s3:
+  bucketName: media-uploader-app
+
+
+
