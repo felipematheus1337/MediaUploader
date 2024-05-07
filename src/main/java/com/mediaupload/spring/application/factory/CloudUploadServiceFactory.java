@@ -1,12 +1,11 @@
 package com.mediaupload.spring.application.factory;
 
 import com.mediaupload.spring.application.aws.AwsUploadService;
-import com.mediaupload.spring.application.aws.AzureUploadService;
+import com.mediaupload.spring.application.azure.AzureUploadService;
 import com.mediaupload.spring.application.cloud.CloudUploadService;
 import com.mediaupload.spring.domain.model.StorageTypeEnum;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;

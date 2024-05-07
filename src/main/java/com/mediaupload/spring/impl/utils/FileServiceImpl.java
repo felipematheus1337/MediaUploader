@@ -1,4 +1,4 @@
-package com.mediaupload.spring.impl.domain.service;
+package com.mediaupload.spring.impl.utils;
 
 import com.mediaupload.spring.domain.model.MediaEnum;
 import com.mediaupload.spring.domain.service.FileService;

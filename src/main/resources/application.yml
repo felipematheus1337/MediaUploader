@@ -39,5 +39,9 @@ aws:
 s3:
   bucketName: media-uploader-app
 
+azure:
+  connectionString: conn
+  accountName: lipetest
+
 
 
