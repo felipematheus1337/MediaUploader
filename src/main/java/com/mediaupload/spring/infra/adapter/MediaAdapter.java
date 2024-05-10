@@ -1,10 +1,7 @@
 package com.mediaupload.spring.infra.adapter;
 
 
-import com.mediaupload.spring.domain.model.MediaEnum;
-import com.mediaupload.spring.domain.model.MediaFormat;
-import com.mediaupload.spring.domain.model.MediaUploadDTO;
-import com.mediaupload.spring.domain.model.StorageTypeEnum;
+import com.mediaupload.spring.domain.model.*;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -20,5 +17,17 @@ public class MediaAdapter {
                         StorageTypeEnum.AWS :
                         StorageTypeEnum.AZURE)
                 .build();
+    }
+
+    public NotificationRequestDTO adaptMediaToNotificationDTO(String userEmail, String phoneNumber, MediaUploadDTO mediaUploadDTO) {
+
+
+        return NotificationRequestDTO.builder()
+                .identificador(mediaUploadDTO.getMediaFormat().getIdentificador().toString())
+                .email(userEmail)
+                .phoneNumber(phoneNumber)
+                .nomeArquivo(mediaUploadDTO.getMediaFormat().getFileName())
+                .build();
+
     }
 }

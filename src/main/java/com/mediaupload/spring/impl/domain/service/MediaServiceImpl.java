@@ -5,6 +5,9 @@ import com.mediaupload.spring.domain.exceptions.UserNotFoundException;
 import com.mediaupload.spring.domain.factory.MediaFactory;
 import com.mediaupload.spring.domain.model.Media;
 import com.mediaupload.spring.domain.model.MediaFormat;
+import com.mediaupload.spring.domain.model.User;
+import com.mediaupload.spring.domain.repository.MediaRepository;
+import com.mediaupload.spring.domain.repository.UserRepository;
 import com.mediaupload.spring.domain.service.FileService;
 import com.mediaupload.spring.domain.service.MediaService;
 import com.mediaupload.spring.domain.service.UserService;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.UUID;
 
 
@@ -30,11 +34,16 @@ public class MediaServiceImpl implements MediaService {
     private final MediaFactory mediaFactory;
     private final MediaMessageProducer mediaMessageProducer;
 
+    private final MediaRepository repository;
+
+    private final UserRepository userRepository;
+
 
 
 
     @Override
     public void upload(byte[] archive ,Media media)  {
+
         log.info("Buscando tipo de mídia específico.");
         MediaFormat mediaFormat = mediaFactory.getMedia(media);
 
@@ -45,8 +54,12 @@ public class MediaServiceImpl implements MediaService {
 
     public Media createAnMedia(MultipartFile file, Long id) throws IOException {
 
+        User user = null;
+
         if (!userService.existsUserById(id))
             throw new UserNotFoundException("Usuário não encontrado para fazer upload");
+
+        user = userRepository.findById(id).get();
 
         Media media = new Media();
 
@@ -55,6 +68,10 @@ public class MediaServiceImpl implements MediaService {
         media.setSize(file.getBytes().length);
         media.setIdentificador(UUID.randomUUID());
 
-        return media;
+        var mediaSalva = repository.save(media);
+
+        user.setMedias(Collections.singletonList(mediaSalva));
+
+        return mediaSalva;
     }
 }
