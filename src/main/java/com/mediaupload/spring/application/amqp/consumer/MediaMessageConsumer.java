@@ -26,6 +26,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 @Component
 @RequiredArgsConstructor
@@ -45,7 +46,7 @@ public class MediaMessageConsumer {
 
 
     @KafkaListener(topics = { "topic-aws", "topic-azure" } )
-    public void listener(@Payload ConsumerRecord<String, Object> payload) throws IOException {
+    public void listener(@Payload ConsumerRecord<String, Object> payload) throws IOException, ExecutionException, InterruptedException {
 
         var media = objectMapper.readValue(payload.value().toString(), MediaUploadDTO.class);
 
@@ -54,7 +55,7 @@ public class MediaMessageConsumer {
         else if(Objects.equals(payload.topic(), TopicEnums.AZURE.name())) sendToAzure(media);
     }
 
-    private void sendToAws(MediaUploadDTO media) throws IOException {
+    private void sendToAws(MediaUploadDTO media) throws IOException, ExecutionException, InterruptedException {
 
         log.info("Fazendo upload para cloud");
 
